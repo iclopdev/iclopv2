@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DataController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [DataController::class, 'index']);
+
+Route::get('/signup', function () {
+    return view('signup');
+})->name('signup');
+
+Route::get('/dashboard-student', function () {
+    return view('dashboard_student');
+})->name('dashboard_student');
+
+Route::get('/learning-student', function () {
+    return view('learning_student');
+})->name('learning_student');
