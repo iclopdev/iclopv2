@@ -31,3 +31,5 @@ Route::get('/dashboard-student', function () {
 Route::get('/learning-student', function () {
     return view('learning_student');
 })->name('learning_student');
+
+require __DIR__ . '/nodejs_routes.php';
