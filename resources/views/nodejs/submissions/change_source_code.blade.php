@@ -44,10 +44,10 @@
         const pond = FilePond.create(inputElement);
         pond.disabled = false;
         github_url.disabled = false;
-        let url = '/submissions/upload';
+        let url = '/nodejs/submissions/upload';
         const project_id = '{{ $submission->project->id }}';
         // pond has value then disable github_url and vice versa
-        url = '/submissions/upload/' + project_id;
+        url = '/nodejs/submissions/upload/' + project_id;
         pond.setOptions({
             server: {
                 url: url,
@@ -67,10 +67,10 @@
         pond.on('addfile', function() {
             if (pond.getFiles().length > 0) {
                 github_url.disabled = true;
-                url = '/submissions/upload/' + project_id;
+                url = '/nodejs/submissions/upload/' + project_id;
             } else {
                 github_url.disabled = false;
-                url = '/submissions/upload';
+                url = '/nodejs/submissions/upload';
             }
             pond.setOptions({
                 server: {
@@ -93,10 +93,10 @@
         github_url.addEventListener('input', function() {
             if (github_url.value !== '') {
                 pond.disabled = true;
-                url = '/submissions/upload/' + project_id;
+                url = '/nodejs/submissions/upload/' + project_id;
             } else {
                 pond.disabled = false;
-                url = '/submissions/upload';
+                url = '/nodejs/submissions/upload';
             }
             pond.setOptions({
                 server: {
@@ -149,7 +149,7 @@
                                         button: "Ok",
                                     }).then(function() {
                                         const submission_id = data.submission.id;
-                                        window.location = "/submissions/submission/" + submission_id;
+                                        window.location = "/nodejs/submissions/submission/" + submission_id;
                                     });
                                 },
                                 error: function(data) {
@@ -203,7 +203,7 @@
                                         button: "Ok",
                                     }).then(function() {
                                         const submission_id = data.submission.id;
-                                        window.location = "/submissions/submission/" + submission_id;
+                                        window.location = "/nodejs/submissions/submission/" + submission_id;
                                     });
                                 },
                                 error: function(data) {

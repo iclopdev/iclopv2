@@ -83,11 +83,11 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 text-right">
-                                        <a href="/submissions/submission/{{ $submission->id }}"
+                                        <a href="/nodejs/submissions/submission/{{ $submission->id }}"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
                                         @if ($submission->status === 'completed' || $submission->status === 'failed')
                                         |
-                                        <a href="/submissions/submission/{{ $submission->id }}/download?type=current"
+                                        <a href="/nodejs/submissions/submission/{{ $submission->id }}/download?type=current"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Download
                                             Results</a>
                                         @endif
@@ -138,10 +138,10 @@
                                         {{$history->description}}
                                     </td>
                                     <td class="px-6 py-4 text-right">
-                                        <a href="/submissions/submission/history/{{ $history->id }}"
+                                        <a href="/nodejs/submissions/submission/history/{{ $history->id }}"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View</a>
                                         |
-                                        <a href="/submissions/submission/{{ $history->id }}/download?type=history"
+                                        <a href="/nodejs/submissions/submission/{{ $history->id }}/download?type=history"
                                             class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Download
                                             Results</a>
                                     </td>
@@ -326,7 +326,7 @@
             async function getSubmissionStatus() {
                 try {
                     await $.ajax({
-                        url: `/submissions/status/submission/{{ $submission->id }}`,
+                        url: `/nodejs/submissions/status/submission/{{ $submission->id }}`,
                         method: 'GET',
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -373,7 +373,7 @@
                 try {
                     // get the response from the server
                     const response = await $.ajax({
-                        url: `/submissions/process/submission`,
+                        url: `/nodejs/submissions/process/submission`,
                         method: 'POST',
                         headers: {
                             'X-CSRF-TOKEN': '{{ csrf_token() }}'
@@ -482,7 +482,7 @@
                         // prevent the user from clicking the button multiple times
                         allowedToRefresh = false;
                         const response = await $.ajax({
-                            url: '/submissions/refresh/submission',
+                            url: '/nodejs/submissions/refresh/submission',
                             method: 'POST',
                             headers: {
                                 'X-CSRF-TOKEN': '{{ csrf_token()}}'

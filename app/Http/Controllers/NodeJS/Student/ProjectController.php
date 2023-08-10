@@ -16,7 +16,7 @@ class ProjectController extends Controller
     public function index(Request $request)
     {
         $projects = Project::all();
-        return view('projects.index', compact('projects'));
+        return view('nodejs.projects.index', compact('projects'));
     }
 
     public function show(Request $request, $project_id)
@@ -25,14 +25,16 @@ class ProjectController extends Controller
         if (!$project) {
             return redirect()->route('projects');
         }
-        return view('projects.show', compact('project'));
+        return view('nodejs.projects.show', compact('project'));
     }
 
     public function showPDF(Request $request)
     {
         if ($request->ajax()) {
             if ($request->id) {
-                $media = Media::find($request->id);
+                $mediaModel = new Media();
+                $mediaModel->setConnection('nodejsDB');
+                $media = $mediaModel->find($request->id);
                 if ($media) {
                     $path = $media->getUrl();
                     return response()->json($path, 200);
@@ -58,7 +60,7 @@ class ProjectController extends Controller
                             return response()->json($zipMedia->getUrl(), 200);
                         } else {
                             $guides = $project->getMedia('project_guides');
-                            $tempDir = storage_path('app/public/assets/projects/' . $project->title . '/zips');
+                            $tempDir = storage_path('app/public/assets/nodejs/projects/' . $project->title . '/zips');
                             if (!is_dir($tempDir)) mkdir($tempDir);
                             foreach ($guides as $guide) {
                                 $path = $guide->getPath();
@@ -68,7 +70,7 @@ class ProjectController extends Controller
                             $zipPath = $tempDir . '/guides.zip';
                             $zip = new ZipArchive;
                             if ($zip->open($zipPath, ZipArchive::CREATE) === TRUE) {
-                                $files = Storage::files('public/assets/projects/' . $project->title . '/zips');
+                                $files = Storage::files('public/assets/nodejs/projects/' . $project->title . '/zips');
                                 foreach ($files as $file) {
                                     $zip->addFile(storage_path('app/' . $file), basename($file));
                                 }
@@ -79,7 +81,7 @@ class ProjectController extends Controller
                             } else {
                                 throw new Exception('Failed to create zip archive');
                             }
-                            $media = $project->addMedia($zipPath)->toMediaCollection('project_zips', 'public_projects_files');
+                            $media = $project->addMedia($zipPath)->toMediaCollection('project_zips', 'nodejs_public_projects_files');
                             return response()->json($media->getUrl(), 200);
                         }
                         break;
@@ -89,7 +91,7 @@ class ProjectController extends Controller
                             return response()->json($zipMedia->getUrl(), 200);
                         } else {
                             $supplements = $project->getMedia('project_supplements');
-                            $tempDir = storage_path('app/public/assets/projects/' . $project->title . '/zips');
+                            $tempDir = storage_path('app/public/assets/nodejs/projects/' . $project->title . '/zips');
                             if (!is_dir($tempDir)) mkdir($tempDir);
                             foreach ($supplements as $supplement) {
                                 $path = $supplement->getPath();
@@ -99,7 +101,7 @@ class ProjectController extends Controller
                             $zipPath = $tempDir . '/supplements.zip';
                             $zip = new ZipArchive;
                             if ($zip->open($zipPath, ZipArchive::CREATE) === TRUE) {
-                                $files = Storage::files('public/assets/projects/' . $project->title . '/zips');
+                                $files = Storage::files('public/assets/nodejs/projects/' . $project->title . '/zips');
                                 foreach ($files as $file) {
                                     $zip->addFile(storage_path('app/' . $file), basename($file));
                                 }
@@ -110,7 +112,7 @@ class ProjectController extends Controller
                             } else {
                                 throw new Exception('Failed to create zip archive');
                             }
-                            $media = $project->addMedia($zipPath)->toMediaCollection('project_zips', 'public_projects_files');
+                            $media = $project->addMedia($zipPath)->toMediaCollection('project_zips', 'nodejs_public_projects_files');
                             return response()->json($media->getUrl(), 200);
                         }
                         break;
@@ -123,7 +125,7 @@ class ProjectController extends Controller
                             $tests_web = $project->getMedia('project_tests_web');
                             $tests_images = $project->getMedia('project_tests_images');
 
-                            $tempDir = storage_path('app/public/assets/projects/' . $project->title . '/zips');
+                            $tempDir = storage_path('app/public/assets/nodejs/projects/' . $project->title . '/zips');
                             if (!is_dir($tempDir)) mkdir($tempDir);
                             if (!is_dir($tempDir . '/tests')) mkdir($tempDir . '/tests');
                             if (!is_dir($tempDir . '/tests/api')) mkdir($tempDir . '/tests/api');
@@ -152,15 +154,15 @@ class ProjectController extends Controller
                                 $zip->addEmptyDir('api');
                                 $zip->addEmptyDir('web');
                                 $zip->addEmptyDir('web/images');
-                                $api_files = Storage::files('public/assets/projects/' . $project->title . '/zips/tests/api');
+                                $api_files = Storage::files('public/assets/nodejs/projects/' . $project->title . '/zips/tests/api');
                                 foreach ($api_files as $file) {
                                     $zip->addFile(storage_path('app/' . $file), 'api/' . basename($file));
                                 }
-                                $api_files = Storage::files('public/assets/projects/' . $project->title . '/zips/tests/web');
+                                $api_files = Storage::files('public/assets/nodejs/projects/' . $project->title . '/zips/tests/web');
                                 foreach ($api_files as $file) {
                                     $zip->addFile(storage_path('app/' . $file), 'web/' . basename($file));
                                 }
-                                $image_files = Storage::files('public/assets/projects/' . $project->title . '/zips/tests/web/images');
+                                $image_files = Storage::files('public/assets/nodejs/projects/' . $project->title . '/zips/tests/web/images');
                                 foreach ($image_files as $file) {
                                     $zip->addFile(storage_path('app/' . $file), 'web/images/' . basename($file));
                                 }
@@ -170,7 +172,7 @@ class ProjectController extends Controller
                             } else {
                                 throw new Exception('Failed to create zip archive');
                             }
-                            $media = $project->addMedia($zipPath)->toMediaCollection('project_zips', 'public_projects_files');
+                            $media = $project->addMedia($zipPath)->toMediaCollection('project_zips', 'nodejs_public_projects_files');
                             return response()->json($media->getUrl(), 200);
                         }
                         break;

@@ -31,11 +31,12 @@
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
         <script src="https://unpkg.com/pdfobject@2.2.10/pdfobject.min.js"></script>
         <link href="{{asset('css/nodejs_style.css')}}" rel="stylesheet">
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     </head>
 
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
-            @include('layouts.navigation')
+            @include('nodejs.layouts.navigation')
 
             <!-- Page Heading -->
             @if (isset($header))

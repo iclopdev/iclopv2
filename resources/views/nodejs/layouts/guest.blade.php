@@ -17,6 +17,9 @@
 
         <!-- Style -->
         <link href="{{asset('css/nodejs_style.css')}}" rel="stylesheet">
+
+        <!-- Scripts -->
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     </head>
 
     <body class="font-sans text-gray-900 antialiased">

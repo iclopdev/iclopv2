@@ -31,7 +31,7 @@
                 </thead>
                 <tbody>
                     @php
-                    $no = 1;
+                    $no = 0;
                     @endphp
                     @forelse ($project->getMedia('project_guides') as $item)
                     @php
@@ -91,7 +91,7 @@
 <script>
     function requestPDF(id){
         $.ajax({
-            url: '/projects/pdf',
+            url: '/nodejs/projects/pdf',
             type: 'GET',
             data: {id: id},
             success: function (data) {

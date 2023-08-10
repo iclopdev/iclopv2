@@ -1,4 +1,5 @@
 @props(['svgWidth' => '20px', 'svgHeight' => '20px', 'id' => '', 'class' => ''])
 <div class="{{$class}}" id={{$id}}>
-    <x-svg.pending_icon width={{$svgWidth}} height={{$svgHeight}} />
+    @component('nodejs.components.svg.failed-icon')
+    @endcomponent
 </div>

@@ -19,7 +19,7 @@
         @endforelse
     </div>
     <div class="px-6 py-2 bg-gray-100 dark:bg-secondary">
-        <a href="/projects/project/{{$project->id}}"
+        <a href="{{route('projects.show', $project->id)}}"
             class="text-xs font-semibold text-secondary dark:text-white uppercase tracking-wide">
             Read more
             <i class="fas fa-arrow-right"></i>

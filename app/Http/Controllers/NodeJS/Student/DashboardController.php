@@ -4,7 +4,6 @@ namespace App\Http\Controllers\NodeJS\Student;
 
 use App\Http\Controllers\Controller;
 use App\Models\NodeJS\Project;
-use App\Models\NodeJS\Submission;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
@@ -16,7 +15,7 @@ class DashboardController extends Controller
         $user = $request->user();
         $projects = Project::skip(0)->take(3)->get();
         if ($request->ajax()) {
-            $data = DB::table('projects')
+            $data = DB::connection('nodejsDB')->table('projects')
                 ->select('projects.id', 'projects.title', DB::raw('COUNT(submissions.id) as submission_count'))
                 ->leftJoin('submissions', function ($join) use ($user) {
                     $join->on('projects.id', '=', 'submissions.project_id')
@@ -28,7 +27,7 @@ class DashboardController extends Controller
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('title', function ($row) {
-                    $title_button = '<a href="/submissions/project/' . $row->id . '" class="underline text-secondary">' . $row->title . '</a>';
+                    $title_button = '<a href="/nodejs/submissions/project/' . $row->id . '" class="underline text-secondary">' . $row->title . '</a>';
                     return $title_button;
                 })
                 ->addColumn('submission_count', function ($row) {
@@ -41,6 +40,6 @@ class DashboardController extends Controller
                 ->rawColumns(['title', 'submission_count'])
                 ->make(true);
         }
-        return view('dashboard.index', compact('projects'));
+        return view('nodejs.dashboard.index', compact('projects'));
     }
 }

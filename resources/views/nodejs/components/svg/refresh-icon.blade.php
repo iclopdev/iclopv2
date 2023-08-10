@@ -1,4 +1,4 @@
-@props(['width' => '20px', 'height' => '20px'])
+@props(['width' => '32px', 'height' => '32px'])
 <?xml version="1.0" ?>
 <svg width="{{$width}}" height="{{$height}}" viewBox="0 0 30.50039 30.5" xmlns="http://www.w3.org/2000/svg"
     fill="rgb(248 113 113)">

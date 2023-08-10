@@ -41,6 +41,7 @@ class UnzipZipFiles implements ShouldQueue
         Log::info("Unzipping {$this->zipFileDir} into {$this->tempDir}");
         $this->updateSubmissionStatus($submission, Submission::$PROCESSING, "Unzipping submitted folder");
         try {
+            if (!file_exists($this->tempDir)) mkdir($this->tempDir, 0777, true);
             // processing
             $process = new Process($this->command);
             $process->start();
@@ -59,7 +60,7 @@ class UnzipZipFiles implements ShouldQueue
             // failed
             Log::error("Failed to unzip {$this->zipFileDir} " . $th->getMessage());
             $this->updateSubmissionStatus($submission, Submission::$FAILED, "Failed tp unzip submitted folder");
-            Process::fromShellCommandline("rm -rf {$this->tempDir}")->run();
+            // Process::fromShellCommandline("rm -rf {$this->tempDir}")->run();
         }
     }
 

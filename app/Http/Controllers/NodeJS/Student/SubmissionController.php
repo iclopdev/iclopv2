@@ -32,7 +32,7 @@ class SubmissionController extends Controller
         $user = $request->user();
         $projects = Project::all();
         if ($request->ajax()) {
-            $data = DB::table('projects')
+            $data = DB::connection('nodejsDB')->table('projects')
                 ->select(
                     'projects.id',
                     'projects.title',
@@ -50,7 +50,7 @@ class SubmissionController extends Controller
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('title', function ($row) {
-                    $title_button = '<a href="/submissions/project/' . $row->id . '" class="underline text-secondary">' . $row->title . '</a>';
+                    $title_button = '<a href="/nodejs/submissions/project/' . $row->id . '" class="underline text-secondary">' . $row->title . '</a>';
                     return $title_button;
                 })
                 ->addColumn('submission_status', function ($row) {
@@ -64,29 +64,29 @@ class SubmissionController extends Controller
                     $submission = Submission::where('project_id', $row->id)->where('user_id', $user->id)->orderBy('id', 'DESC')->first();
                     $buttons = '
                     <div class="relative" x-data="{ open: false }" @click.outside="open = false" @close.stop="open = false">
-                        <div @click="open = ! open">
-                            <button
-                                class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-500 dark:text-white dark:hover:text-gray-300 hover:underline">
-                                <svg class="ml-1 h-5 w-5 text-gray-500 dark:text-gray-400"
-                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                    aria-hidden="true">
-                                    <g id="Menu / Menu_Alt_02">
-                                        <path id="Vector" d="M11 17H19M5 12H19M11 7H19" stroke="currentColor"
-                                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                                    </g>
-                                </svg>
-                            </button>
-                        </div>
-                        <div x-show="open"
-                            x-transition:enter="transition ease-out duration-200"
-                            x-transition:enter-start="transform opacity-0 scale-95"
-                            x-transition:enter-end="transform opacity-100 scale-100"
-                            x-transition:leave="transition ease-in duration-75"
-                            x-transition:leave-start="transform opacity-100 scale-100"
-                            x-transition:leave-end="transform opacity-0 scale-95"
-                            class="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top"
-                            style="display: none;"
-                            @click="open = false">
+                    <div @click="open = ! open">
+                        <button
+                            class="flex items-center text-sm font-medium text-gray-900 hover:text-gray-500 dark:text-white dark:hover:text-gray-300 hover:underline">
+                            <svg class="ml-1 h-5 w-5 text-gray-500 dark:text-gray-400"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                aria-hidden="true">
+                                <g id="Menu / Menu_Alt_02">
+                                    <path id="Vector" d="M11 17H19M5 12H19M11 7H19" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                                </g>
+                            </svg>
+                        </button>
+                    </div>
+                    <div x-show="open"
+                        x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="transform opacity-0 scale-95"
+                        x-transition:enter-end="transform opacity-100 scale-100"
+                        x-transition:leave="transition ease-in duration-75"
+                        x-transition:leave-start="transform opacity-100 scale-100"
+                        x-transition:leave-end="transform opacity-0 scale-95"
+                        class="absolute z-50 mt-2 w-48 rounded-md shadow-lg origin-top"
+                        style="display: none;"
+                        @click="open = false">
                         <div class="rounded-md ring-1 ring-black ring-opacity-5 py-1 bg-white dark:bg-gray-700">
                     ';
                     if ($submission !== null) {
@@ -119,7 +119,7 @@ class SubmissionController extends Controller
                 ->rawColumns(['title', 'submission_status', 'action'])
                 ->make(true);
         }
-        return view('submissions.index', compact('projects'));
+        return view('nodejs.submissions.index', compact('projects'));
     }
 
 
@@ -131,7 +131,7 @@ class SubmissionController extends Controller
 
             $file = $request->file('folder_path');
             $file_name = $file->getClientOriginalName();
-            $folder_path = 'public/tmp/submissions/' . $request->user()->id . '/' . $project_title;
+            $folder_path = 'public/nodejs/tmp/submissions/' . $request->user()->id . '/' . $project_title;
             $file->storeAs($folder_path, $file_name);
 
             TemporaryFile::create([
@@ -149,7 +149,7 @@ class SubmissionController extends Controller
 
         try {
             $request->validate([
-                'project_id' => 'required|exists:projects,id',
+                'project_id' => 'required|exists:nodejsDB.projects,id',
                 'folder_path' => 'required_without:github_url',
                 'github_url' => 'required_without:folder_path',
             ]);
@@ -171,7 +171,7 @@ class SubmissionController extends Controller
 
                 if ($temporary_file) {
                     $path = storage_path('app/' . $request->folder_path . '/' . $temporary_file->file_name);
-                    $submission->addMedia($path)->toMediaCollection('submissions', 'public_submissions_files');
+                    $submission->addMedia($path)->toMediaCollection('submissions', 'nodejs_public_submissions_files');
                     if ($this->is_dir_empty(storage_path('app/' . $request->folder_path))) {
                         rmdir(storage_path('app/' . $request->folder_path));
                     }
@@ -208,7 +208,7 @@ class SubmissionController extends Controller
         if (!$project) {
             return redirect()->route('submissions');
         }
-        return view('submissions.show', compact('project', 'submissions', 'submission_history'));
+        return view('nodejs.submissions.show', compact('project', 'submissions', 'submission_history'));
     }
 
     public function show(Request $request, $submission_id)
@@ -217,7 +217,7 @@ class SubmissionController extends Controller
         $submission = Submission::where('id', $request->submission_id)->where('user_id', $user->id)->first();
         if ($submission) {
             $steps = $submission->getExecutionSteps();
-            return view('submissions.show', compact('submission', 'steps'));
+            return view('nodejs.submissions.show', compact('submission', 'steps'));
         }
         return redirect()->route('submissions');
     }
@@ -228,7 +228,7 @@ class SubmissionController extends Controller
         $submission = SubmissionHistory::where('id', $history_id)->where('user_id', $user->id)->first();
         if ($submission) {
             $steps = $submission->getExecutionSteps();
-            return view('submissions.show', compact('submission', 'steps'));
+            return view('nodejs.submissions.show', compact('submission', 'steps'));
         }
         return redirect()->route('submissions');
     }
@@ -429,7 +429,7 @@ class SubmissionController extends Controller
 
     private function getTempDir($submission)
     {
-        return storage_path('app/public/tmp/submissions/' . $submission->user_id . '/' . $submission->project->title . '/' . $submission->id);
+        return storage_path('app/public/nodejs/tmp/submissions/' . $submission->user_id . '/' . $submission->project->title . '/' . $submission->id);
     }
 
     private function is_dir_empty($dir)
@@ -653,7 +653,7 @@ class SubmissionController extends Controller
         $user = Auth::user();
         $submission = Submission::where('id', $submission_id)->where('user_id', $user->id)->first();
         if ($submission) {
-            return view('submissions.change_source_code', compact('submission'));
+            return view('nodejs.submissions.change_source_code', compact('submission'));
         }
         return redirect()->route('submissions');
     }
@@ -662,7 +662,7 @@ class SubmissionController extends Controller
     {
         try {
             $request->validate([
-                'submission_id' => 'required|exists:submissions,id',
+                'submission_id' => 'required|exists:nodejsDB.submissions,id',
                 'folder_path' => 'required_without:github_url',
                 'github_url' => 'required_without:folder_path',
             ]);
@@ -693,7 +693,7 @@ class SubmissionController extends Controller
 
                 if ($temporary_file) {
                     $path = storage_path('app/' . $request->folder_path . '/' . $temporary_file->file_name);
-                    $submission->addMedia($path)->toMediaCollection('submissions', 'public_submissions_files');
+                    $submission->addMedia($path)->toMediaCollection('submissions', 'nodejs_public_submissions_files');
                     if ($this->is_dir_empty(storage_path('app/' . $request->folder_path))) {
                         rmdir(storage_path('app/' . $request->folder_path));
                     }

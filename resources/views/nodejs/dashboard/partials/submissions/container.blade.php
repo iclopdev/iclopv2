@@ -6,8 +6,8 @@
         </h2>
     </div>
     <div class="grid grid-col-1 md:grid-cols-2 gap-4 py-2">
-        @include('dashboard.partials.submissions.table')
-        @include('dashboard.partials.submissions.form')
+        @include('nodejs.dashboard.partials.submissions.table')
+        @include('nodejs.dashboard.partials.submissions.form')
     </div>
     @else
     <x-not-found message="No Projects Found" />

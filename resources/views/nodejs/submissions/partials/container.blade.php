@@ -6,7 +6,7 @@
         </h2>
     </div>
     <div class="grid grid-col-1 gap-4 py-2">
-        @include('submissions.partials.table')
+        @include('nodejs.submissions.partials.table')
     </div>
     @else
     <x-not-found message="No Submissions Found" />

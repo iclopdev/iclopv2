@@ -76,7 +76,7 @@
 <script>
     function download(type){
         $.ajax({
-            url: '/projects/project/{{$project->id}}/download',
+            url: '/nodejs/projects/project/{{$project->id}}/download',
             type: 'GET',
             data: {type: type},
             success: function (response) {

@@ -28,7 +28,7 @@
                 }).then((willDelete) => {
                     if (willDelete) {
                         $.ajax({
-                            url: '/submissions/delete/submission',
+                            url: '/nodejs/submissions/delete/submission',
                             type: 'DELETE',
                             headers: {
                                 'X-CSRF-TOKEN': '{{ csrf_token()}}'
@@ -44,7 +44,7 @@
                                     icon: "success",
                                     button: "Ok",
                                 }).then(function() {
-                                    window.location = "/submissions";
+                                    window.location = "/nodejs/submissions";
                                 });
                             },
                             error: function(data) {
@@ -69,7 +69,7 @@
                 }).then((willRestart) => {
                     if (willRestart) {
                         $.ajax({
-                            url: '/submissions/restart/submission',
+                            url: '/nodejs/submissions/restart/submission',
                             type: 'POST',
                             headers: {
                                 'X-CSRF-TOKEN': '{{ csrf_token()}}'
@@ -85,7 +85,7 @@
                                     icon: "success",
                                     button: "Ok",
                                 }).then(function() {
-                                    window.location = "/submissions";
+                                    window.location = "/nodejs/submissions";
                                 });
                             },
                             error: function(data) {
@@ -103,7 +103,7 @@
                 break;
             case "change-source-code":
                 // redirect to change source code page
-                window.location = '/submissions/change/' + submission_id;
+                window.location = '/nodejs/submissions/change/' + submission_id;
                 break;
             default:
                 break;

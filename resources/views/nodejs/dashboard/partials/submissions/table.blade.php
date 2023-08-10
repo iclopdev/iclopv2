@@ -32,7 +32,7 @@
                 "next": ">",
             },
         },
-        ajax: "{{ route('dashboard') }}",
+        ajax: "{{ route('dashboard.nodejs') }}",
         columns: [
             {data: 'title', name: 'title', orderable: true, searchable: true},
             {data: 'submission_count', name: 'submission_count', orderable: true, searchable: false, className: "text-center"}

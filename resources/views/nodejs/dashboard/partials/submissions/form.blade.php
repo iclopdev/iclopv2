@@ -9,7 +9,7 @@
                 @foreach ($projects as $project)
                 @php
                 $haveBeenSubmitted = false;
-                $submssion = \App\Models\Submission::where('project_id', $project->id)
+                $submssion = \App\Models\NodeJS\Submission::where('project_id', $project->id)
                 ->where('user_id',Auth::user()->id)->first();
                 if ($submssion) {
                 $haveBeenSubmitted = true;
@@ -62,17 +62,17 @@
         pond.disabled = true;
         github_url.disabled = true;
         const project_id = $('#project_id');
-        var url = '/submissions/upload';
+        var url = '/nodejs/submissions/upload';
         project_id.on('change', function() {
             const project_id = $(this).val();
             if(project_id){
                 pond.disabled = false;
                 github_url.disabled = false;
-                url = '/submissions/upload/' + project_id;
+                url = '/nodejs/submissions/upload/' + project_id;
             }else{
                 pond.disabled = true;
                 github_url.disabled = true;
-                url = '/submissions/upload';
+                url = '/nodejs/submissions/upload';
             }
             pond.setOptions({
                 server: {
@@ -130,7 +130,7 @@
                                         button: "Ok",
                                     }).then(function() {
                                         const submission_id = data.submission.id;
-                                        window.location = "/submissions/submission/" + submission_id;
+                                        window.location = "/nodejs/submissions/submission/" + submission_id;
                                     });
                                 },
                                 error: function(data) {
@@ -192,7 +192,7 @@
                                             button: "Ok",
                                         }).then(function() {
                                             const submission_id = data.submission.id;
-                                            window.location = "/submissions/submission/" + submission_id;
+                                            window.location = "/nodejs/submissions/submission/" + submission_id;
                                         });
                                     },
                                     error: function(data) {

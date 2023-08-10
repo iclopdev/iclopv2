@@ -13,7 +13,11 @@ Route::prefix('nodejs')->group(function () {
 
     Route::middleware('auth')->group(function () {
         // Dashboard
-        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.nodejs');
+        // Profile
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
         // Projects
         Route::prefix('projects')->controller(ProjectController::class)->group(function () {
             Route::get('/', 'index')->name('projects');
