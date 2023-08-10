@@ -39,7 +39,23 @@ return [
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL') . '/storage',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'nodejs_public_projects_files' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/nodejs/projects'),
+            'url' => env('APP_URL') . 'storage/nodejs/projects',
+            'visibility' => 'public',
+            'throw' => false,
+        ],
+
+        'nodejs_public_submissions_files' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/nodejs/tmp/submissions_zip_files'),
+            'url' => env('APP_URL') . 'storage/nodejs/tmp/submissions_zip_files',
             'visibility' => 'public',
             'throw' => false,
         ],
