@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('media', function (Blueprint $table) {
+        Schema::connection('nodejsDB')->create('media', function (Blueprint $table) {
             $table->id();
 
             $table->morphs('model');
@@ -32,6 +32,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Schema::dropIfExists('media');
+        Schema::connection('nodejsDB')->dropIfExists('media');
     }
 };
