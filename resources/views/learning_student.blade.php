@@ -277,7 +277,7 @@
                         <!-- Modal footer -->
                         <div class="modal-footer d-flex justify-content-center" style="border-top: none">
                             <button type="button" class="btn btn-outline-primary" data-dismiss="modal" style="width: 160px;">Back</button>
-                            <button type="button" class="btn btn-primary" style="margin-left: 10px; width: 160px;" onclick="materialDetails()">
+                            <button type="button" class="btn btn-primary" style="margin-left: 10px; width: 160px;" onclick="materialDetailPage()">
                                 <i class="fas fa-key" style="margin-right: 5px;"></i>Enroll Material
                             </button>
                         </div>
@@ -404,10 +404,10 @@
 
     <!-- JavaScript untuk mengubah konten tab -->
     <script>
-        function materialDetails() {
-            window.location.href = '{{ route('
-            material_detail ') }}';
+        function materialDetailPage() {
+            window.location.href = "{{ route('material_detail') }}";
         }
+
         // Fungsi untuk mengubah warna ikon, teks, dan link menjadi biru
         function changeColor(id) {
             var icon = document.getElementById(id + 'Icon');
