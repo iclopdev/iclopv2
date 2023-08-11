@@ -105,7 +105,7 @@
                         </div>
                     </div>
                     <div style="margin-top: auto;">
-                        <a href="{{ route('learning_student') }}" class="btn btn-primary">Start Learning</a>
+                        <a href="/nodejs" class="btn btn-primary">Start Learning</a>
                     </div>
                 </div>
             </div>

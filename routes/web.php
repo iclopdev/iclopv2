@@ -36,4 +36,9 @@ Route::get('/material-detail', function () {
     return view('material_detail');
 })->name('material_detail');
 
+// Route Node JS
 require __DIR__ . '/nodejs_routes.php';
+
+// Route Aplas
+
+// Route Flutter
