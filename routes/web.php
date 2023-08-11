@@ -32,4 +32,8 @@ Route::get('/learning-student', function () {
     return view('learning_student');
 })->name('learning_student');
 
+Route::get('/material-detail', function () {
+    return view('material_detail');
+})->name('material_detail');
+
 require __DIR__ . '/nodejs_routes.php';

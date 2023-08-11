@@ -43,6 +43,7 @@
             /* Warna teks saat tombol normal */
             transition: background-color 0.3s, color 0.3s;
             /* Efek transisi ketika hover */
+            /* outline: none; */
         }
 
         .custom-button:hover {
@@ -92,18 +93,59 @@
             align-items: center;
             justify-content: center;
             margin-top: 15px;
+            outline: none;
+        }
+
+        .custom-button-detail {
+            width: 180px;
+            height: 45px;
+            border-radius: 10px;
+            background-color: #EAEAEA;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            margin-left: auto;
+            color: #A0A0A0;
+            /* Warna teks saat tombol normal */
+            transition: background-color 0.3s, color 0.3s;
+            /* Efek transisi ketika hover */
+        }
+
+        .custom-button-detail:hover {
+            background-color: #007BFF;
+            /* Warna latar belakang saat tombol dihover */
+            color: white;
+            /* Warna teks saat tombol dihover menjadi putih */
         }
 
         .button-text {
             font-weight: 500;
-            font-size: 18px;
+            font-size: 15px;
             font-family: 'Poppins', sans-serif;
             margin: 0;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .text {
+            font-size: 15px;
+            font-family: 'Poppins', sans-serif;
         }
 
         .sidebar-right-shadow {
             box-shadow: 1px 0px 8px rgba(0, 0, 0, 0.1);
             /* Menambahkan bayangan ke sisi kanan */
+        }
+
+        .footer {
+            background-color: #EAEAEA;
+            color: #636363;
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
         }
     </style>
 
@@ -215,7 +257,34 @@
                 </div>
             </nav>
             <!-- ------------------------------------------------------------------------------------------ -->
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog" style="width: 420px">
+                    <div class="modal-content">
 
+                        <!-- Modal Header -->
+                        <div class="modal-header" style="border-bottom: none">
+                            {{-- <h4 class="modal-title">Modal Title</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button> --}}
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body text-center">
+                            <p class="text" style="font-size: 25px; font-weight: 600">Are you sure ?</p>
+                            <p class="text" style="font-size: 18px">Click the enroll button to start<br>your learning!</p>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer d-flex justify-content-center" style="border-top: none">
+                            <button type="button" class="btn btn-outline-primary" data-dismiss="modal" style="width: 160px;">Back</button>
+                            <button type="button" class="btn btn-primary" style="margin-left: 10px; width: 160px;" onclick="materialDetails()">
+                                <i class="fas fa-key" style="margin-right: 5px;"></i>Enroll Material
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
             <!-- CONTENT -->
             <main class="col-md-9">
                 <div class="content" id="start-learning">
@@ -240,8 +309,12 @@
                                             <div class="p-3">A1:Java - Basic UI Java Edition - for Android Studio 3.x</div>
                                         </div>
                                         <div class="col" style="text-align: right;">
-                                            <button class="btn custom-button" style="color: #636363; background-color: #EDEDED;">Material Details</button>
-                                            <!-- <a href="detailmateri.html" class="btn btn-primary" style="color: #636363; background-color: #ededed;">Material Details</a> -->
+                                            <div class="custom-button-detail">
+                                                <p class="button-text" data-toggle="modal" data-target="#myModal">
+                                                    <i class="fas fa-key" style="margin-right: 5px;"></i> <!-- Ikon kunci -->
+                                                    Material Details
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -250,7 +323,13 @@
                                             <div class="p-3">A1:Java - Basic UI Java Edition - for Android Studio 4.x</div>
                                         </div>
                                         <div class="col" style="text-align: right;">
-                                            <button class="btn custom-button" style="color: #636363; background-color: #EDEDED;">Material Details</button>
+                                            <div class="custom-button-detail">
+                                                <p class="button-text">
+                                                    <i class="fas fa-key" style="margin-right: 5px;"></i> <!-- Ikon kunci -->
+                                                    Material Details
+                                                </p>
+                                            </div>
+                                            {{-- <button class="btn custom-button" style="color: #636363; background-color: #EDEDED;">Material Details</button> --}}
                                         </div>
                                     </div>
 
@@ -259,7 +338,13 @@
                                             <div class="p-3">A1:Kotlin - Basic UI Kotlin Edition</div>
                                         </div>
                                         <div class="col" style="text-align: right;">
-                                            <button class="btn custom-button" style="color: #636363; background-color: #EDEDED;">Material Details</button>
+                                            <div class="custom-button-detail">
+                                                <p class="button-text">
+                                                    <i class="fas fa-key" style="margin-right: 5px;"></i> <!-- Ikon kunci -->
+                                                    Material Details
+                                                </p>
+                                            </div>
+                                            {{-- <button class="btn custom-button" style="color: #636363; background-color: #EDEDED;">Material Details</button> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -294,6 +379,7 @@
                                     <img src="./images/profile.png" alt="Image 1" class="circle-image">
                                     <h2 class="custom-title">My Profile</h2>
                                     <p class="custom-subtitle">Ubah data diri kamu</p>
+                                    {{-- <button type="button" class="btn btn-primary custom-button"><p class="button-text">Edit Now</p></button> --}}
                                     <div class="custom-button">
                                         <p class="button-text">Edit Now</p>
                                     </div>
@@ -318,6 +404,10 @@
 
     <!-- JavaScript untuk mengubah konten tab -->
     <script>
+        function materialDetails() {
+            window.location.href = '{{ route('
+            material_detail ') }}';
+        }
         // Fungsi untuk mengubah warna ikon, teks, dan link menjadi biru
         function changeColor(id) {
             var icon = document.getElementById(id + 'Icon');
@@ -396,14 +486,10 @@
             });
         });
     </script>
-</body>
-<footer>
-    <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <p>&copy; 2023 iCLOP. All rights reserved.</p>
-        </div>
+        © 2023 Your Website. All rights reserved.
     </footer>
-</footer>
+</body>
+
 
 </html>
