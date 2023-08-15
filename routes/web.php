@@ -39,6 +39,9 @@ Route::get('/material-detail', function () {
 // Route Node JS
 require __DIR__ . '/nodejs_routes.php';
 
+// Temporary Auth routes
+require __DIR__ . '/auth.php';
+
 // Route Aplas
 
 // Route Flutter
