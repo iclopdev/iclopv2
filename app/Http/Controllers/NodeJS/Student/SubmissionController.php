@@ -114,7 +114,7 @@ class SubmissionController extends Controller
                 })
                 ->editColumn('attempts_count', function ($row) {
                     $attempts_count = $row->attempts_count ?? 0;
-                    return $attempts_count + 1;
+                    return !$row->submission_status ? 0 : ($attempts_count + 1);
                 })
                 ->rawColumns(['title', 'submission_status', 'action'])
                 ->make(true);
@@ -359,7 +359,7 @@ class SubmissionController extends Controller
         ], 404);
     }
 
-    public function returnSubmissionResponse($message, $status, $results, $next_step = null, $completion_percentage)
+    public function returnSubmissionResponse($message, $status, $results, $next_step, $completion_percentage)
     {
         return response()->json([
             'message' => $message,

@@ -84,7 +84,7 @@
                     },
                 },
                 allowMultiple: false,
-                acceptedFileTypes: ['application/x-zip-compressed'],
+                acceptedFileTypes: ['application/x-zip-compressed', 'application/zip'],
                 fileValidateTypeDetectType: (source, type) =>
                     new Promise((resolve, reject) => {
                     resolve(type);
