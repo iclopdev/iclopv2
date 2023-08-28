@@ -47,6 +47,8 @@ class NpmInstall implements ShouldQueue
             $process->wait();
             if ($process->isSuccessful()) {
                 Log::info("NPM installed in folder {$this->tempDir}");
+                Process::fromShellCommandline("chmod -R 777 {$this->tempDir}")->run();
+                Log::info("CHange permission in folder {$this->tempDir}");
                 $this->updateSubmissionStatus($submission, Submission::$COMPLETED, "NPM installed");
             } else {
                 Log::error("Failed to NPM install in folder {$this->tempDir} "   . $process->getErrorOutput());
