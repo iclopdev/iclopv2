@@ -244,7 +244,7 @@
                     </div>
                 </div>
                 <div
-                    class="bg-gray-200 dark:bg-gray-900 border-secondary border-2 overflow-hidden shadow-sm sm:rounded-lg md:col-span-2 md:row-span-1 md:rounded-md md:shadow-md md:py-6 md:px-8 lg:px-12 xl:px-16">
+                    class="bg-gray-600 dark:bg-gray-900 border-secondary border-2 overflow-hidden shadow-sm sm:rounded-lg md:col-span-2 md:row-span-1 md:rounded-md md:shadow-md md:py-6 md:px-8 lg:px-12 xl:px-16">
                     <!-- content for the bigger column -->
 
                     <div class="m-5 w-100 bg-gray-600 sm:rounded-lg md:rounded-md" id="progress">
