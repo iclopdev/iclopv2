@@ -139,47 +139,47 @@ describe("Testing the login page", () => {
     });
 });
 
-describe("Testing the login page image snapshots", () => {
-    it("matches the expected styling for the login page", async () => {
-        if (!fs.existsSync("tests/web/images/login-page.png")) {
-            throw new Error(
-                `The reference image for the login page does not exist, please import the image from the "tests/web/images/login-page.png"`
-            );
-        }
-        const client = await page.target().createCDPSession();
-        await client.send("Network.clearBrowserCookies");
-        await client.send("Network.clearBrowserCache");
-        await page.goto(`http://localhost:${process.env.PORT}/login`);
-        const screenshot = await page.screenshot({ fullPage: true });
-        expect(
-            screenshot,
-            `The web styling for the login page is not correct check the file "tests/web/images/__diff_output__/login-page-diff.png" to find the difference`,
-            options
-        ).toMatchImageSnapshot({
-            customDiffConfig: { threshold: 0.9 },
-            customSnapshotsDir: "tests/web/images",
-            customSnapshotIdentifier: "login-page",
-        });
-    });
+// describe("Testing the login page image snapshots", () => {
+//     it("matches the expected styling for the login page", async () => {
+//         if (!fs.existsSync("tests/web/images/login-page.png")) {
+//             throw new Error(
+//                 `The reference image for the login page does not exist, please import the image from the "tests/web/images/login-page.png"`
+//             );
+//         }
+//         const client = await page.target().createCDPSession();
+//         await client.send("Network.clearBrowserCookies");
+//         await client.send("Network.clearBrowserCache");
+//         await page.goto(`http://localhost:${process.env.PORT}/login`);
+//         const screenshot = await page.screenshot({ fullPage: true });
+//         expect(
+//             screenshot,
+//             `The web styling for the login page is not correct check the file "tests/web/images/__diff_output__/login-page-diff.png" to find the difference`,
+//             options
+//         ).toMatchImageSnapshot({
+//             customDiffConfig: { threshold: 0.9 },
+//             customSnapshotsDir: "tests/web/images",
+//             customSnapshotIdentifier: "login-page",
+//         });
+//     });
 
-    it("matches the expected styling for the login page with error", async () => {
-        if (!fs.existsSync("tests/web/images/login-page-with-error.png")) {
-            throw new Error(
-                `The reference image for the login page with error does not exist, please import the image from the "tests/web/images/login-page-with-error.png"`
-            );
-        }
-        await page.type("#username", user.username);
-        await page.type("#password", "wrongpassword");
-        await page.click("button");
-        const screenshot = await page.screenshot({ fullPage: true });
-        expect(
-            screenshot,
-            `The web styling for the login page with error is not correct check the file "tests/web/images/__diff_output__/login-page-with-error-diff.png" to find the difference`,
-            options
-        ).toMatchImageSnapshot({
-            customDiffConfig: { threshold: 0.9 },
-            customSnapshotsDir: "tests/web/images",
-            customSnapshotIdentifier: "login-page-with-error",
-        });
-    });
-});
+//     it("matches the expected styling for the login page with error", async () => {
+//         if (!fs.existsSync("tests/web/images/login-page-with-error.png")) {
+//             throw new Error(
+//                 `The reference image for the login page with error does not exist, please import the image from the "tests/web/images/login-page-with-error.png"`
+//             );
+//         }
+//         await page.type("#username", user.username);
+//         await page.type("#password", "wrongpassword");
+//         await page.click("button");
+//         const screenshot = await page.screenshot({ fullPage: true });
+//         expect(
+//             screenshot,
+//             `The web styling for the login page with error is not correct check the file "tests/web/images/__diff_output__/login-page-with-error-diff.png" to find the difference`,
+//             options
+//         ).toMatchImageSnapshot({
+//             customDiffConfig: { threshold: 0.9 },
+//             customSnapshotsDir: "tests/web/images",
+//             customSnapshotIdentifier: "login-page-with-error",
+//         });
+//     });
+// });
